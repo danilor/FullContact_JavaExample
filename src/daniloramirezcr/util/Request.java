@@ -27,6 +27,7 @@ public class Request {
     private String conectionMethod = "GET";
     private HashMap headers = null;
     private Boolean use_cache = false;
+    private String user_agent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
 
     /*
@@ -71,6 +72,7 @@ public class Request {
             URL request_object = new URL( this.getUrl() );
             HttpURLConnection connection = (HttpURLConnection) request_object.openConnection();
             connection.setRequestMethod( this.conectionMethod );
+            connection.setRequestProperty("User-Agent", this.user_agent );
             connection.setUseCaches( this.use_cache );
             connection.setDoInput( true );
             connection.setDoOutput( true );

@@ -15,6 +15,7 @@ public class ContactData {
     public List<ContactWebsite> websites = new ArrayList<ContactWebsite>();
     public List<ContactPhoto> photos = new ArrayList<ContactPhoto>();
     public List<ContactSocialProfile> social = new ArrayList<ContactSocialProfile>();
+    public List<GoogleResult> googleResults = new ArrayList<GoogleResult>();
 
     /* Constructor */
     public void FullContact_Data(){
@@ -28,6 +29,15 @@ public class ContactData {
         aux . typeName  = typeName;
         aux . url       = url;
         this.photos.add( aux );
+        return this;
+    }
+
+    public ContactData addGoogleResult(String url, String title, String content){
+        GoogleResult aux = new GoogleResult();
+        aux . url           = url;
+        aux . title         = title;
+        aux . description   = content;
+        this.googleResults.add( aux );
         return this;
     }
 

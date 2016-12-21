@@ -15,15 +15,15 @@ public class Main {
 
     public static void main( String[] args ){
         Console.l("Welcome to the FullContact Magic Search System");
-        // String e = Console.readString("Please insert the email you want to search for: ");
+        String e = Console.readString("Please insert the email you want to search for: ");
         Config c = new Config();
         String key = c.read("fullcontact_key");
         FullContact fc = new FullContact();
         fc.setApiKey( key );
 
         Console.l("Please wait while we harvest the information...");
-        //fc.lookByEmail( "arkofdan@hotmail.com" );
-        fc.lookByEmail( "zhurig@lbaabogados.com" );
+        //fc.lookByEmail( "" );
+        fc.lookByEmail( e );
         ContactData person = fc.getLastData();
 
         if(person != null){
@@ -59,6 +59,16 @@ public class Main {
                 }
             }
 
+            if( person.googleResults.size() > 0 ){
+                Console.l( "Google Results found." );
+                for( int i = 0 ; i < person.googleResults.size() ; i++ ){
+                    Console.space();
+                    Console.l( "TITLE: " + person.googleResults.get(i).title );
+                    Console.l( "URL: " + " - " + person.googleResults.get(i).url );
+                    Console.l( "DOMAIN: " + " - " + person.googleResults.get(i).getDomainName() );
+                    Console.l(  person.googleResults.get(i).description );
+                }
+            }
         }else{
 
             Console.e("No information found for this email.");

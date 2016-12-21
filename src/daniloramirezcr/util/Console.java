@@ -21,6 +21,14 @@ public class Console {
         String text = scan.nextLine();
         return text;
     }
+    public static void space(){
+        System.out.println();
+    }
+    public static void space(int times){
+        for( int i = 0 ; i < times ; i++ ){
+            System.out.println();
+        }
+    }
 
 
 }
