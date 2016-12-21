@@ -5,24 +5,24 @@ import java.util.*;
 /**
  * Created by danilo on 14/12/2016.
  */
-public class FullContact_Data {
+public class ContactData {
     // All this attributes should be fullfill from the JSON
     public String requestId, fullName, givenName, familyName,
             normalizedLocation, deducedLocation, country_name, country_code,
             continent,
             location_general;
     public float likelihood, location_likelihood;
-    public List<FullContact_Website> websites = new ArrayList<FullContact_Website>();
-    public List<FullContact_Photo> photos = new ArrayList<FullContact_Photo>();
-    public List<FullContact_SocialProfile> social = new ArrayList<FullContact_SocialProfile>();
+    public List<ContactWebsite> websites = new ArrayList<ContactWebsite>();
+    public List<ContactPhoto> photos = new ArrayList<ContactPhoto>();
+    public List<ContactSocialProfile> social = new ArrayList<ContactSocialProfile>();
 
     /* Constructor */
     public void FullContact_Data(){
 
     }
 
-    public FullContact_Data addPhoto(String type, String typeId, String typeName, String url){
-        FullContact_Photo aux = new FullContact_Photo();
+    public ContactData addPhoto(String type, String typeId, String typeName, String url){
+        ContactPhoto aux = new ContactPhoto();
         aux . type      = type;
         aux . typeId    = typeId;
         aux . typeName  = typeName;
@@ -31,8 +31,8 @@ public class FullContact_Data {
         return this;
     }
 
-    public FullContact_Data addSocialProfile(String type, String typeId, String typeName, String url){
-        FullContact_SocialProfile aux = new FullContact_SocialProfile();
+    public ContactData addSocialProfile(String type, String typeId, String typeName, String url){
+        ContactSocialProfile aux = new ContactSocialProfile();
         aux . type      = type;
         aux . typeId    = typeId;
         aux . typeName  = typeName;
@@ -41,8 +41,8 @@ public class FullContact_Data {
         return this;
     }
 
-    public FullContact_Data addWebsite(String url){
-        FullContact_Website aux = new FullContact_Website();
+    public ContactData addWebsite(String url){
+        ContactWebsite aux = new ContactWebsite();
         aux . url = url;
         this.websites.add( aux );
         return this;

@@ -7,8 +7,6 @@ import daniloramirezcr.util.Config;
 import daniloramirezcr.util.FileManagement;
 import daniloramirezcr.util.Request;
 
-import java.util.*;
-
 /**
  * Created by danilo on 14/12/2016.
  * @author Danilo Ramírez Mattey
@@ -23,7 +21,7 @@ public class FullContact {
     private String last_search = "";
     private String last_search_type = "";
     private FullContact_Error last_error;
-    private FullContact_Data last_data;
+    private ContactData last_data;
     private String look_email_url = "https://api.fullcontact.com/v2/person.!FORMAT!?email=!EMAIL!";
     private String default_format = "json";
     private Config conf = null;
@@ -37,6 +35,7 @@ public class FullContact {
         this.last_error = null;
         this.last_data = null;
         this.conf = new Config();
+        this.createEmptyPerson(); // We create the new person object (just in case)
     }
 
 
@@ -52,7 +51,7 @@ public class FullContact {
         return this.apikey;
     }
 
-    public FullContact_Data getLastData(){
+    public ContactData getLastData(){
         return this.last_data;
     }
 
@@ -65,7 +64,6 @@ public class FullContact {
     }
 
     public FullContact lookByEmail(String email){
-
         Request r = new Request();
         r.setUrl( this.look_email_url.replaceAll( "!EMAIL!" , email ).replaceAll("!FORMAT!",this.default_format) );
         r.setConnectionMethod( "GET" ).addHeader( "X-FullContact-APIKey" , this.apikey ).setCache( false );
@@ -109,7 +107,8 @@ public class FullContact {
             * In the future, if the JSON changes, we will have to change how it is read.
             * */
         JsonObject o = g.fromJson( result , JsonObject.class ); // We create a generic JSON object that is the object we are creating from the JSON string.
-        FullContact_Data person = new FullContact_Data(); // We prepare the person object. This object should be stored later
+        ContactData person = this.last_data;
+        // We prepare the person object. This object should be stored later
         person.requestId = o.get("requestId").getAsString(); // We get the request ID. Just in case.
         person.likelihood = o.get("likelihood").getAsFloat(); // Same as above.
 
@@ -168,6 +167,28 @@ public class FullContact {
         }
 
         this.last_data = person; // We assign the person to the last person we are getting.
+
+    }
+
+    /*
+    * This will create an empty person just in case the FullContact API doesnt return anything. This is because we are adding
+    * the Google API search.
+    * */
+    private void createEmptyPerson(){
+
+        ContactData p = new ContactData();
+        p.familyName = this.conf.read("default_data");
+        p.fullName = this.conf.read("default_data");
+        p.givenName = this.conf.read("default_data");
+        p.likelihood = 0;
+        p.deducedLocation = this.conf.read("default_data");
+        p.location_general = this.conf.read("default_data");;
+        p.location_likelihood = 0;
+        p.country_code = this.conf.read("default_data");
+        p.country_name = this.conf.read("default_data");
+        p.continent = this.conf.read("default_data");
+
+        this.last_data = p;
 
     }
 

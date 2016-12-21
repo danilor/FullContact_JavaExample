@@ -5,10 +5,6 @@ package daniloramirezcr.util;
  */
 
 
-import com.google.gson.Gson;
-import daniloramirezcr.FullContact.FullContact;
-import daniloramirezcr.FullContact.FullContact_Data;
-
 import java.net.*; // This is for the network function
 import java.io.*; // This is for the option to read the buffer
 import java.util.HashMap;
